@@ -203,3 +203,5 @@ end
 
 set title: "Snowman Word Game", width: 800, height: 600
 show
+
+exit 0
