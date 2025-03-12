@@ -3,22 +3,12 @@ require 'ruby2d'
 # Returns a display string for the word, showing underscores for unguessed letters.
 def update_word_display(chosen_word, guessed_letters)
   chosen_word.chars.map do |char|
-    if char.match?(/[A-Za-z']/) #I dont actually know if this works for apostrophes, haven't gotten a word with one
+    if char.match?(/[A-Za-z']/)
       guessed_letters.include?(char.downcase) ? char : "_"
     else
       char
     end
   end.join(" ")
-end
-
-def prompt_new_game(event)
-  if event.key == 'return'
-    clear
-    Text.remove
-    return false
-  end
-  
-  true
 end
 
 # Draw the snowman parts based on the number of incorrect guesses.
@@ -50,19 +40,34 @@ def draw_snowman(incorrect_guesses)
       radius: 25, sectors: 32,
       color: 'white', z: 10
     )
+    parts << Circle.new(
+      x: center_x - 10, y: base_y - 70 - 50 - 5,
+      radius: 3, sectors: 32,
+      color: 'black', z: 10
+    )
+    parts << Circle.new(
+      x: center_x + 10, y: base_y - 70 - 50 - 5,
+      radius: 3, sectors: 32,
+      color: 'black', z: 10
+    )
+    parts << Triangle.new(
+      x1: center_x,  y1: base_y - 70 - 50,
+      x2: center_x, y2: base_y - 70 - 50 + 5,
+      x3: center_x + 20,   y3: base_y - 70 - 50 + 7,
+      color: 'orange',
+      z: 100
+    )
   end
   # 4. Hat
   if incorrect_guesses >= 4
     parts << Square.new(
       x: center_x - 15, y: base_y - 70 - 50 - 25 - 5 - 30,
-      size: 30, color: 'white',
-      z: 30
+      size: 30, color: 'red', z: 30
     )
     parts << Rectangle.new(
       x: center_x - 25, y: base_y - 70 - 50 - 25 - 5,
       width: 50, height: 10,
-      color: 'white',
-      z: 20
+      color: 'red', z: 20
     )
   end
   # 5. Left Arm
@@ -70,7 +75,7 @@ def draw_snowman(incorrect_guesses)
     parts << Line.new(
       x1: center_x - 30, y1: base_y - 70,
       x2: center_x - 75, y2: base_y - 70 - 35,
-      width: 5, color: 'white', z: 20
+      width: 5, color: 'brown', z: 20
     )
   end
   # 6. Right Arm
@@ -78,7 +83,7 @@ def draw_snowman(incorrect_guesses)
     parts << Line.new(
       x1: center_x + 30, y1: base_y - 70,
       x2: center_x + 75, y2: base_y - 70 - 35,
-      width: 5, color: 'white', z: 20
+      width: 5, color: 'brown', z: 20
     )
   end
   
