@@ -141,6 +141,9 @@ on :key_down do |event|
       start_new_game()
       $game_over = false
     end
+    if event.key == 'escape'
+      exit 0
+    end
     next
   end
 
@@ -176,11 +179,13 @@ on :key_down do |event|
         $message_text.text = "The word was: #{$chosen_word}"
         $game_over_text.text = "You Win!"
         Text.new("Press [Enter] to Play Again!", x: 75, y: 325, size: 25)
+        Text.new("Press [Escape] to Exit", x: 75, y: 360, size: 25)
         $game_over = true
       elsif $incorrect_guesses >= $max_incorrect
         $message_text.text = "The word was: #{$chosen_word}"
         $game_over_text.text = "Game Over!"
         Text.new("Press [Enter] to Play Again!", x: 75, y: 325, size: 25)
+        Text.new("Press [Escape] to Exit", x: 75, y: 360, size: 25)
         $game_over = true
       end
     end
